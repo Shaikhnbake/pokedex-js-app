@@ -20,10 +20,12 @@ alert('Hello Pokemon Trainers!');
 
     let minSize = (doubleSize*2)-(size/2);
     document.write(minSize);
+
+    let favoriteFood = '10 piece wing, 3 wedges, pint of yams and extra hot sauce';
+    document.write(favoriteFood);
+
 */
 
-let favoriteFood = '10 piece wing, 3 wedges, pint of yams and extra hot sauce';
-document.write(favoriteFood);
 let pokemonList = [
   {
     name: 'Charmander',
