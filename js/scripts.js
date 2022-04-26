@@ -1,4 +1,4 @@
-alert('Hello JuiceWrld');
+alert('Hello Pokemon Trainers!');
 // this creates a pop up message when loading screen
 
 /* this is all practice CODE
