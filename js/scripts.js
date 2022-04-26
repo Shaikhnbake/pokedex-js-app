@@ -18,7 +18,7 @@ let pokemonList = [
     height: 0.8,
     weight: 30,
     types: ['Mouse','Electric'],
-  }
+  },
 
   {
     name: 'Pikachu',
