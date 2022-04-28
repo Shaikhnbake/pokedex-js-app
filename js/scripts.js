@@ -41,3 +41,19 @@ let pokemonList = [
     types: ['Mole','Ground'],
   }
 ]
+
+
+  // Creates a loop that displays all pokemon names and height on Index page
+  for (let i = 0; i < pokemonList.length; i++){
+
+  // Creates conditional that checks pokemon weight and displays funny message!
+    if (pokemonList[i].weight >= 60){
+      document.write(pokemonList[i].name + " Height:(" + pokemonList[i].height + ")" + " That's a CHONKY pokemon!");
+    } else if (pokemonList[i].weight < 60 && pokemonList[i].weight > 25){
+      document.write(pokemonList[i].name + " Height:(" + pokemonList[i].height + ")" + " What a Shmedium pokemon ew!");
+    } else{
+      document.write(pokemonList[i].name + " Height:(" + pokemonList[i].height + ")" + "Thats a TINY BOI");
+    }
+  }
+
+// need to figure out how to style JS output!!
