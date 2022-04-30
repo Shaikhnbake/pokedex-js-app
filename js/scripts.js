@@ -48,11 +48,11 @@ let pokemonList = [
 
   // Creates conditional that checks pokemon weight and displays funny message!
     if (pokemonList[i].weight >= 60){
-      document.write(pokemonList[i].name + " Height:(" + pokemonList[i].height + ")" + " That's a CHONKY pokemon!");
+      document.write("<div class='pokemon'>" + pokemonList[i].name + " Height:(" + pokemonList[i].height + ")  -" + " That's a CHONKY pokemon! </div><br>");
     } else if (pokemonList[i].weight < 60 && pokemonList[i].weight > 25){
-      document.write(pokemonList[i].name + " Height:(" + pokemonList[i].height + ")" + " What a Shmedium pokemon ew!");
+      document.write("<div class='pokemon'>" + pokemonList[i].name + " Height:(" + pokemonList[i].height + ")  -" + " What a Shmedium pokemon ew! </div><br>");
     } else{
-      document.write(pokemonList[i].name + " Height:(" + pokemonList[i].height + ")" + "Thats a TINY BOI");
+      document.write("<div class='pokemon'>" + pokemonList[i].name + " Height:(" + pokemonList[i].height + ")  -" + "Thats a TINY BOI! </div><br>");
     }
   }
 
