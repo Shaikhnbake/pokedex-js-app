@@ -66,3 +66,16 @@ let pokemonRepository = (function(){
   };
 })();
 
+//internal anonymous function
+pokemonRepository.getAll().forEach(function(pokemonList){
+  if (pokemonList.weight >= 60){
+    document.write("<div class='pokemon'>" + pokemonList.name + " Height:(" + pokemonList.height + ")  -" + " That's a CHONKY pokemon! </div><br>");
+  } else if (pokemonList.weight < 60 && pokemonList.weight > 25){
+    document.write("<div class='pokemon'>" + pokemonList.name + " Height:(" + pokemonList.height + ")  -" + " What a Shmedium pokemon ew! </div><br>");
+  } else{
+    document.write("<div class='pokemon'>" + pokemonList.name + " Height:(" + pokemonList.height + ")  -" + "Thats a TINY BOI! </div><br>");
+  }
+});
+
+
+console.log(pokemonRepository.getAll());
