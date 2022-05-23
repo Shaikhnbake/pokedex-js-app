@@ -46,8 +46,6 @@ let pokemonRepository = (function(){
     }
   ];
 
-
-
 // Add allows user to input new pokemon as long as data type is correct.
   function add(pokemon){
     if (typeof pokemon === "object" &&
@@ -67,31 +65,43 @@ let pokemonRepository = (function(){
   }
 
 // Creates the structure of pokedex
+  function addListItem(pokemon){
     // assigns variable to HTML class
+    let pokedex = document.querySelector('.pokemon-list');
     // creates a list html object
+    let pokedexItem = document.createElement('li');
     // creates a button per each List object
+    let button = document.createElement('button');
     // adds pokemon name to list and gives each button a specific class
+    button.innerText = pokemon.name;
+    button.classList.add('pokemon-list-button');
     // adds the button to pokedexItem list
+    pokedexItem.appendChild(button);
     // adds the list item to the whole pokedex
+    pokedex.appendChild(pokedexItem);
+    addEvent (button, pokemon)
+  }
 // will log pokemon details in console if User clicks on button!
+  function addEvent (button, pokemon){
+    button.addEventListener('click', function(){
+      showDetails(pokemon);
+    });
+  }
+
+  function showDetails(pokemon){
+    console.log(pokemon);
+  }
+
   return{
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    addListItem: addListItem
   };
 })();
-
-//internal anonymous function
-pokemonRepository.getAll().forEach(function(pokemonList){
-  if (pokemonList.weight >= 60){
-    document.write("<div class='pokemon'>" + pokemonList.name + " Height:(" + pokemonList.height + ")  -" + " That's a CHONKY pokemon! </div><br>");
-  } else if (pokemonList.weight < 60 && pokemonList.weight > 25){
-    document.write("<div class='pokemon'>" + pokemonList.name + " Height:(" + pokemonList.height + ")  -" + " What a Shmedium pokemon ew! </div><br>");
-  } else{
-    document.write("<div class='pokemon'>" + pokemonList.name + " Height:(" + pokemonList.height + ")  -" + "Thats a TINY BOI! </div><br>");
-  }
-});
-
 
 console.log(pokemonRepository.getAll());
 
 // forEach loop goes through pokemonList and creates Pokedex.
+pokemonRepository.getAll().forEach(function (pokemon){
+  pokemonRepository.addListItem(pokemon);
+});
