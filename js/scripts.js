@@ -1,4 +1,7 @@
+// pokemonRepository is the overcompassing IIFE for this POKEDEX
 let pokemonRepository = (function(){
+
+// pokemonList is the Array the holds all the pokemon objects
   let pokemonList = [
     {
       name: 'Charmander',
@@ -45,6 +48,7 @@ let pokemonRepository = (function(){
 
 
 
+// Add allows user to input new pokemon as long as data type is correct.
   function add(pokemon){
     if (typeof pokemon === "object" &&
     "name" in pokemon &&
@@ -56,10 +60,20 @@ let pokemonRepository = (function(){
     console.log("input is wrong");
   }
 }
+
+// getAll returns all objects in pokemonList Array
   function getAll(){
     return pokemonList;
   }
 
+// Creates the structure of pokedex
+    // assigns variable to HTML class
+    // creates a list html object
+    // creates a button per each List object
+    // adds pokemon name to list and gives each button a specific class
+    // adds the button to pokedexItem list
+    // adds the list item to the whole pokedex
+// will log pokemon details in console if User clicks on button!
   return{
     add: add,
     getAll: getAll
@@ -79,3 +93,5 @@ pokemonRepository.getAll().forEach(function(pokemonList){
 
 
 console.log(pokemonRepository.getAll());
+
+// forEach loop goes through pokemonList and creates Pokedex.
