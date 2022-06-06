@@ -79,10 +79,10 @@ let pokemonRepository = (function(){
     pokedexItem.appendChild(button);
     // adds the list item to the whole pokedex
     pokedex.appendChild(pokedexItem);
-    addEvent (button, pokemon)
+    addEvent(button, pokemon)
   }
 // will log pokemon details in console if User clicks on button!
-  function addEvent (button, pokemon){
+  function addEvent(button, pokemon){
     button.addEventListener('click', function(){
       showDetails(pokemon);
     });
