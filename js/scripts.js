@@ -2,57 +2,16 @@
 let pokemonRepository = (function(){
 
 // pokemonList is the Array the holds all the pokemon objects
-  let pokemonList = [
-    {
-      name: 'Charmander',
-      height: 0.6,
-      weight: 8.5,
-      types: ['Lizard','Fire'],
-    },
-
-    {
-      name: 'Charizard',
-      height: 1.7,
-      weight: 90.5,
-      types: ['Lizard','Fire','Flying'],
-    },
-
-    {
-      name: 'Raichu',
-      height: 0.8,
-      weight: 30,
-      types: ['Mouse','Electric'],
-    },
-
-    {
-      name: 'Pikachu',
-      height: 0.4,
-      weight: 6,
-      types: ['Mouse','Electric'],
-    },
-
-    {
-      name: 'Zubat',
-      height: 0.8,
-      weight: 7.5,
-      types: ['Bat','Poison','Flying'],
-    },
-
-    {
-      name: 'Dugtrio',
-      height: 0.7,
-      weight: 33.3,
-      types: ['Mole','Ground'],
-    }
-  ];
+  let pokemonList = [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
 // Add allows user to input new pokemon as long as data type is correct.
   function add(pokemon){
-    if (typeof pokemon === "object" &&
-    "name" in pokemon &&
-    "height" in pokemon &&
-    "weight" in pokemon &&
-    "types" in pokemon){
+    if (
+      typeof pokemon === "object" &&
+      "name" in pokemon &&
+      "detailsUrl" in pokemon
+    ){
     pokemonList.push(pokemon);
   } else {
     console.log("input is wrong");
@@ -79,29 +38,71 @@ let pokemonRepository = (function(){
     pokedexItem.appendChild(button);
     // adds the list item to the whole pokedex
     pokedex.appendChild(pokedexItem);
-    addEvent(button, pokemon)
-  }
 // will log pokemon details in console if User clicks on button!
-  function addEvent(button, pokemon){
-    button.addEventListener('click', function(){
+    button.addEventListener("click", function(event){
       showDetails(pokemon);
     });
   }
 
-  function showDetails(pokemon){
-    console.log(pokemon);
+
+  function showDetails(item){
+    pokemonRepository.loadDetails(item).then(function(){
+      console.log(item);
+    });
+  }
+
+  function loadList(){
+    return fetch(apiUrl).then(function(response){
+      return response.json();
+    }).then(function(json){
+      json.results.forEach(function(item){
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+    }).catch(function(e){
+      console.error(e);
+    })
+  }
+
+  function loadDetails(item){
+    let url = item.detailsUrl;
+    return fetch(url).then(function(response){
+      return response.json();
+    }).then(function(details){
+      // add details to item list
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.weight = details.weight;
+      item.types = details.types;
+    }).catch(function(e){
+      console.error(e);
+    });
   }
 
   return{
     add: add,
     getAll: getAll,
-    addListItem: addListItem
+    addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails,
+    showDetails: showDetails
   };
 })();
 
-console.log(pokemonRepository.getAll());
-
+//loads data from api
+pokemonRepository.loadList().then(function(){
 // forEach loop goes through pokemonList and creates Pokedex.
-pokemonRepository.getAll().forEach(function (pokemon){
-  pokemonRepository.addListItem(pokemon);
+  pokemonRepository.getAll().forEach(function (pokemon){
+    pokemonRepository.addListItem(pokemon);
+  });
 });
+
+
+
+// OPTIONAL: WRITE FUNCTION THAT ADDS IMAGE URL from list items as actual images on HTML Page
+
+// BONUS FUNCTIONS !
+//  function showLoadingMessage(){} & function hideLoadingMessage(){ }
