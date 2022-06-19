@@ -115,9 +115,7 @@ let pokemonRepository = (function(){
       dialogPromiseReject();
       dialogPromiseReject = null;
     }
-  }
 
-// IF I INCLUDE CODE THAT CONTAINS ((ADD EVENT LISTENER )) IT WONT SHOW UP THE LIST
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
         hideModal();
@@ -129,9 +127,7 @@ let pokemonRepository = (function(){
         hideModal();
       }
     });
-    document.querySelector('#show-modal').addEventListener('click', () => {
-      showModal(pokemon);
-    });
+}
 
 
   return {
