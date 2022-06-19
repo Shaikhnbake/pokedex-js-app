@@ -99,11 +99,17 @@ let pokemonRepository = (function(){
     modalTitle.innerText = pokemon.name;
 
     let modalBody = document.createElement('p');
-    modalBody.innerText = pokemon.height;
+    modalBody.innerText = 'Height: ' + pokemon.height + 'm '
+                          + 'Weight: ' + pokemon.weight + 'lbs';
+    //how would I add weight and other stats underneath this in list form?
+
+    let pokePic = document.createElement('img');
+    pokePic.src = pokemon.imageUrl;
 
     modal.appendChild(closeButton);
     modal.appendChild(modalTitle);
     modal.appendChild(modalBody);
+    modal.appendChild(pokePic);
     modalContainer.appendChild(modal);
 
     modalContainer.classList.add('is-visible');
