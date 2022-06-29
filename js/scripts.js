@@ -4,8 +4,6 @@ let pokemonRepository = (function(){
 // pokemonList is the Array the holds all the pokemon objects
   let pokemonList = [];
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-  let modalContainer = document.querySelector('#modal-container');
-  let dialogPromiseReject;
 
 // Add allows user to input new pokemon as long as data type is correct.
   function add(pokemon){
@@ -28,19 +26,26 @@ let pokemonRepository = (function(){
 // Creates the structure of pokedex
   function addListItem(pokemon){
     // assigns variable to HTML class
-    let pokedex = document.querySelector('.pokemon-list');
+    let pokedex = document.querySelector('.list-group');
     // creates a list html object
     let pokedexItem = document.createElement('li');
+    pokedexItem.classList.add("group-list-item");
+    //Creates 4 columns on large, 2 columns on medium and 1 column on small screens.
+    pokedexItem.classList.add("col-sm-12", "col-md-6", "col-lg-3");
+
     // creates a button per each List object
     let button = document.createElement('button');
     // adds pokemon name to list and gives each button a specific class
     button.innerText = pokemon.name;
-    button.classList.add('pokemon-list-button');
+    $(button).addClass("btn btn-primary pokemon-list-button");
+    button.setAttribute("data-toggle", "modal");
+    button.setAttribute("data-target", ".modal");
+
     // adds the button to pokedexItem list
     pokedexItem.appendChild(button);
     // adds the list item to the whole pokedex
     pokedex.appendChild(pokedexItem);
-// will log pokemon details in console if User clicks on button!
+    // will log pokemon details in console if User clicks on button!
     button.addEventListener("click", function(event){
       showDetails(pokemon);
     });
@@ -85,56 +90,25 @@ let pokemonRepository = (function(){
     });
   }
 
-  function showModal(pokemon){
-    modalContainer.innerHTML = '';
-    let modal = document.createElement('div');
-    modal.classList.add('modal');
+  function showModal(item){
+    let modalBody = $(".modal-body");
+    let modalTitle = $(".modal-title");
+    let modalHeader = $(".modal-header");
+    modalTitle.empty();
+    modalBody.empty();
+    let namePoke = $("<h1>" + item.name + "</h1>");
+    let heightPoke = $("<p>" + "Height: " + item.height + " m" + "</p>");
+    let weightPoke = $("<p>" + "Weight: " + item.weight + " lbs" + "</p>");
+    let typePoke = $("<p>" + "Type(s): " + item.types + "</p>");
+    let pokeImage = $('<img class="modal-img">');
+    pokeImage.attr("src", item.imageUrl);
 
-    let closeButton = document.createElement('button');
-    closeButton.classList.add('modal-close');
-    closeButton.innerText = 'Close';
-    closeButton.addEventListener('click',hideModal);
-
-    let modalTitle = document.createElement('h1');
-    modalTitle.innerText = pokemon.name;
-
-    let modalBody = document.createElement('p');
-    modalBody.innerText = 'Height: ' + pokemon.height + 'm '
-                          + 'Weight: ' + pokemon.weight + 'lbs';
-    //how would I add weight and other stats underneath this in list form?
-
-    let pokePic = document.createElement('img');
-    pokePic.src = pokemon.imageUrl;
-
-    modal.appendChild(closeButton);
-    modal.appendChild(modalTitle);
-    modal.appendChild(modalBody);
-    modal.appendChild(pokePic);
-    modalContainer.appendChild(modal);
-
-    modalContainer.classList.add('is-visible');
+    modalBody.append(pokeImage);
+    modalTitle.append(namePoke);
+    modalBody.append(heightPoke);
+    modalBody.append(weightPoke);
+    modalBody.append(typePoke);
   }
-
-  function hideModal(){
-    modalContainer.classList.remove('is-visible');
-    if(dialogPromiseReject){
-      dialogPromiseReject();
-      dialogPromiseReject = null;
-    }
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-        hideModal();
-      }
-    });
-    modalContainer.addEventListener('click', (e) => {
-      let target = e.target;
-      if (target === modalContainer) {
-        hideModal();
-      }
-    });
-}
-
 
   return {
     add: add,
