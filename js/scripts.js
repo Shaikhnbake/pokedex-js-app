@@ -37,7 +37,7 @@ let pokemonRepository = (function(){
     let button = document.createElement('button');
     // adds pokemon name to list and gives each button a specific class
     button.innerText = pokemon.name;
-    $(button).addClass("btn btn-primary pokemon-list-button");
+    button.classList.add("btn", "btn-primary", "pokemon-list-button");
     button.setAttribute("data-toggle", "modal");
     button.setAttribute("data-target", ".modal");
 
@@ -84,7 +84,10 @@ let pokemonRepository = (function(){
       item.name = details.name;
       item.height = details.height;
       item.weight = details.weight;
-      item.types = details.types;
+
+      let types = [];
+      details.types.forEach((item) => types.push(item.type.name));
+      item.types = types;
     }).catch(function(e){
       console.error(e);
     });
@@ -99,7 +102,7 @@ let pokemonRepository = (function(){
     let namePoke = $("<h1>" + item.name + "</h1>");
     let heightPoke = $("<p>" + "Height: " + item.height + " m" + "</p>");
     let weightPoke = $("<p>" + "Weight: " + item.weight + " lbs" + "</p>");
-    let typePoke = $("<p>" + "Type(s): " + item.types + "</p>");
+    let typePoke = $("<p>" + "Type(s): " + item.types.join(", ") + "</p>");
     let pokeImage = $('<img class="modal-img">');
     pokeImage.attr("src", item.imageUrl);
 
