@@ -30,14 +30,13 @@ let pokemonRepository = (function(){
     // creates a list html object
     let pokedexItem = document.createElement('li');
     pokedexItem.classList.add("group-list-item");
-    //Creates 4 columns on large, 2 columns on medium and 1 column on small screens.
-    pokedexItem.classList.add("col-sm-12", "col-md-6", "col-lg-3");
+
 
     // creates a button per each List object
     let button = document.createElement('button');
     // adds pokemon name to list and gives each button a specific class
     button.innerText = pokemon.name;
-    button.classList.add("btn", "btn-primary", "pokemon-list-button");
+    button.classList.add("btn", "btn-lg", "btn-danger", "pokemon-list-button");
     button.setAttribute("data-toggle", "modal");
     button.setAttribute("data-target", ".modal");
 
