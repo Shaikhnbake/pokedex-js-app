@@ -47,8 +47,10 @@ body {
   color: var(--primary-font-color);
   padding: 10px;
   border: 2px solid var(--secondary-color);
+  border-radius: 8px;
   text-align: center;
-  font-size: var(--primary-font-size);
+  font-size: 24px;
+  width: 60%;
 }
 
 ul {
